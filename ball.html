@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <style>
+        .game {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            border: 5px solid #fff;
+            background-color: rgb(235, 224, 224);
+        }
+
+        .ball {
+            display: block;
+            background-color: #fff;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 65% 15%, white 1px, aqua 3%, darkblue 60%, aqua 100%);  
+        }
+
+        .board{
+            display: block;
+            background-color: #ff0000;
+            width: 120px;
+            height: 10px;
+            position: absolute;
+            bottom: 10px;
+            left: 100px;
+            border-radius: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+        <div id="ball" class="ball"></div>
+        <div id="board" class="board"></div>
+    </div>
+</body>
+</html>
+<script>
+    var mtop = 2;
+    var mleft = 2;
+    var bleft = 100;
+    var left_speed = Math.floor((Math.random() * 50)-10);
+    var top_speed = Math.floor((Math.random() * 50)-10);
+    $(function(){
+        setInterval(function(){
+            if(mtop+top_speed>=485 || mtop+top_speed <0){
+                top_speed *= -1;
+            }
+            mtop += top_speed;
+            if(mleft+left_speed>=485 || mleft+left_speed <0){
+                left_speed *= -1;
+            }
+            mleft += left_speed;
+            $("#ball").css({
+                "top": mtop + 'px',
+                "left": mleft +'px'
+            });
+        },70);
+        $(".game").mousemove(function(e){
+            bleft = e.pageX-60;
+            $("#board").css("left", bleft + 'px');
+        });
+    });
+</script>

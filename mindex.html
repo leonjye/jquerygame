@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        var ans = Math.floor(Math.random()*99)+1
+        var min = 0;
+        var max = 100;
+    </script>
+    <style>
+        .answer {
+            display: block;
+            font-size: 150%;
+            width: 40%;
+            background-color: antiquewhite;
+            color: blue
+        }
+        .answer:hover{
+            font-size: 200%
+        }
+    </style>
+</head>
+<body>
+    <div id="txtGuess">
+    </div>
+    <input type="input" id="txtinput" style="width: 50px;text-align:right" value="1"/>
+    <input type="button" id="btnTest" value="click me"/>
+</body>
+</html>
+<script>
+    $(function(){
+        $('#txtGuess').append($('<div>').append(min).append(' < ? < ').append(max).addClass('answer'));
+        $('#btnTest').on('click', function(e){
+            console.log('ans: ' + ans);
+            var guess = parseInt($('#txtinput').val());
+            console.log('guess: ' + guess);
+            if(ans < guess){
+                max = guess;
+                $('#txtGuess').append($('<div>').append(min).append(' < ? < ').append(max).addClass('answer'));
+            }else if(guess < ans){
+                min = guess;
+                $('#txtGuess').append($('<div>').append(min).append(' < ? < ').append(max).addClass('answer'));
+            }else{
+                $('#txtGuess').append('<h2>bingo!!!</h2>');
+            }
+        });
+    });
+</script>
