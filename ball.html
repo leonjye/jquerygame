@@ -36,15 +36,26 @@
             width: 120px;
             height: 10px;
             position: absolute;
-            bottom: 10px;
+            top: 460px;
             left: 100px;
             border-radius: 5%;
+        }
+
+        .gameover{
+            color: red;
+            font-size: xx-large;  
+            text-shadow: 2px gray;
+            text-align:center;
+            position:absolute;
+            top: 200px;
+            left: 200px;
         }
     </style>
 </head>
 <body>
     <div class="game">
         <div id="ball" class="ball"></div>
+        <div id="gameover" class="gameover">GAME OVER</div>
         <div id="board" class="board"></div>
     </div>
 </body>
@@ -53,11 +64,14 @@
     var mtop = 2;
     var mleft = 2;
     var bleft = 100;
-    var left_speed = Math.floor((Math.random() * 50)-10);
-    var top_speed = Math.floor((Math.random() * 50)-10);
+    //var left_speed = Math.floor((Math.random() * 30)+5);
+    //var top_speed = Math.floor((Math.random() * 40)+12);
+    var left_speed = 25;
+    var top_speed = 40;
     $(function(){
-        setInterval(function(){
-            if(mtop+top_speed>=485 || mtop+top_speed <0){
+        $('#gameover').hide();
+        var myil = setInterval(function(){
+            if((mleft > bleft && mleft <= bleft+100 && mtop > 430) || mtop+top_speed <0){
                 top_speed *= -1;
             }
             mtop += top_speed;
@@ -65,13 +79,19 @@
                 left_speed *= -1;
             }
             mleft += left_speed;
+            if(mtop >= 465){
+                clearInterval(myil);
+                $('#gameover').slideDown('slow');
+            }
             $("#ball").css({
                 "top": mtop + 'px',
                 "left": mleft +'px'
             });
-        },70);
+        },60);
         $(".game").mousemove(function(e){
             bleft = e.pageX-60;
+            if(bleft < 0) bleft = 0;
+            if(bleft + 120 > 500) bleft=380;
             $("#board").css("left", bleft + 'px');
         });
     });
